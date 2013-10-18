@@ -1,0 +1,95 @@
+html, body {
+    height: 100%;
+ }
+body {
+  padding: 50px;
+  font-family: Tahoma,Arial;
+  font-size: 12px;
+  line-height: 14px;
+}
+
+a {
+  color: #00B7FF;
+}
+ul li { list-style: none; margin-left:-30px; }
+
+.files_rec{
+	border-right: 1px solid rgba(43, 43, 43, 0.4);
+	box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.4) inset, -1px 0 0 0 rgba(255, 255, 255, 0.9) inset;
+	float:left;
+	background: rgba(220,220,220,0.9);
+	height:100%;
+}
+.code_rec{
+	border: solid 1px transparent;
+	padding-top:25px;
+	background: rgba(220,220,220,0.5);
+	height:100%;
+
+}
+.menu_rec{
+	background-image: -moz-linear-gradient(center top , #292929, #242424) /*repeat scroll 0 0 rgba(0, 0, 0, 0)*/;
+	background-image: -webkit-linear-gradient(top , #292929, #242424);
+	background-image: -ms-linear-gradient(top , #292929, #242424);
+	background-image: -o-linear-gradient(top , #292929, #242424);
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    box-shadow: 0 1px 0 0 #353535 inset;
+    height: 25px;
+    margin: 0;
+    float:left;
+    vertical-align: center;
+    width:100%;
+}
+
+.menu_text{
+	color: #CECECE;
+	line-height: 25px;
+	margin-left: 5px;
+}
+
+.w-space{
+	color: #666;
+	padding:	5px;
+	border-bottom: 1px solid rgba(143, 143, 143, 0.4);
+	text-shadow: 0 1px 0 #FFFFFF;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+.wrap_files{
+	padding:0px 5px;
+}
+.triangle_img{
+	max-height:18px;
+	float:left; 
+	margin-right:-3px;
+	overflow: hidden;
+    transition-duration: 0.3s;
+    -moz-transition-duration: 0.3s;
+    -webkit-transition-duration: 0.3s;
+    -ms-transition-duration: 0.3s;
+    -o-transition-duration: 0.3s;
+    transition-property: transform;
+}
+.triangle_transform {
+    transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+}
+.folder_img{
+	padding-right:2px;
+	float:left;
+}
+.file_img{
+	margin-left:12px;
+	float:left;
+}
+.folder_lable{
+	line-height: 16px;
+	font-size: 11px;
+}
+.clear{
+	clear:both;
+}

@@ -1,0 +1,12 @@
+doctype 5
+html(ng-app="") 
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="http://code.angularjs.org/1.2.0-rc.2/angular.min.js",type="application/javascript")
+    script(src="http://code.jquery.com/jquery-1.9.1.js",type="application/javascript")
+    
+    script(src="javascripts/script.js",type="application/javascript")
+    
+  body(ng-controller="testController", style="padding:0px; margin:0px;width:100%")
+    block content
