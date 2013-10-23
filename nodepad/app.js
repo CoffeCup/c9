@@ -7,6 +7,7 @@ var express = require('express');
 var routes = require('./routes');
 var controller = require(__dirname + '/controllers/index.js');
 var init_data = require(__dirname + '/controllers/init_data.js');
+var files = require(__dirname + '/controllers/files.js');
 var http = require('http');
 var path = require('path');
 
@@ -32,14 +33,10 @@ if ('development' == app.get('env')) {
 // mount routers
 
 
-//console.log(process.argv.length+'>'+w_index);
-//console.log("__"+w_path);
-
-console.log(init_data.index);
-
 app.get('/', controller.index);
 app.post('/init' , init_data.index);
-app.get('/test' , init_data.test);
+app.post('/files/get_folder' ,files.get_folder);
+
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

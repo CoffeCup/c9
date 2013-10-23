@@ -1,12 +1,11 @@
 function testController($scope, $http) {
 	$scope.classes = "";
-
 	
 
-	  $scope.tr_transf = function($index){
-	  	
-	  	tr($index, $scope);
-	  };
+	$scope.folder_inside = function(index, path)		
+							{	
+								folder_inside(index, path, $scope, $http);
+							};
 
 
 	$http({method: 'post', url: '/init'}).
@@ -47,7 +46,7 @@ function testController($scope, $http) {
 function mousePos($scope){
  	document.onmousemove = function (e) {
 	 	
-	 		if((e.clientX >=($scope.window.left.width) && e.clientX <=($scope.window.left.width+5))) 
+	 	if((e.clientX >=($scope.window.left.width) && e.clientX <=($scope.window.left.width+5))) 
  		{	
  			$("body").css('cursor', 'ew-resize');
  			$scope.resize = true;
@@ -61,11 +60,37 @@ function mousePos($scope){
  	
 };
 
-function tr($index, $scope) {console.log($scope.window.files_tree.folders[$index]);
-	  	if($scope.window.files_tree.folders[$index].tr_class == "")
-	  		$scope.window.files_tree.folders[$index].tr_class = "triangle_transform";
-	  	else
-	  		$scope.window.files_tree.folders[$index].tr_class = "";
-	    //console.log(window.files_tree.folders[$index]);
-	  };
-
+	  
+	  
+function folder_inside(index, path, $scope, $http)
+{
+	var folder = $scope.window.files_tree;
+	index.forEach(function(entry) 
+	{
+		folder = folder["folders"][entry];
+		
+	});
+  	if(folder.tr_class == "")
+  	{
+  		folder.tr_class = "triangle_transform";
+  		$('.'+folder.id_class).toggle();
+  		if(typeof(folder.folders)=='undefined')
+  		{
+	  		var data = {index : index, path:path};
+		    $http.post('/files/get_folder', data).success(
+		    	function(data){
+		    		if(data.folders.length > 0)
+		    			folder.folders = data.folders;
+		    		if(data.files.length > 0)
+		    			folder.files = data.files;
+		    		
+		    	}
+		    );
+		 }
+  	}
+  	else
+  	{
+		folder.tr_class = "";
+		$('.'+folder.id_class).toggle();
+	}
+}

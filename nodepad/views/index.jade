@@ -1,6 +1,33 @@
 extends layout
 
 block content
+	<!---------- Folders template ------------->
+	script(type="text/ng-template", id="tree_folders.html")
+		img(src="images/triangle.png", class="triangle_img {{data.tr_class}}", ng-click="folder_inside({{data.index}}, '{{data.path}}{{data.name}}')")
+		img(src="images/folder_icon.png", class="folder_img", ng-click="folder_inside({{data.index}}, '{{data.path}}{{data.name}}')") 
+		div(class="lable", class="folder_lable")
+			lable{{data.name}}
+		div(class="clear")
+		div(class="{{data.id_class}}", style="display:none;")
+			div(ng-repeat="data in data.folders", ng-include="'tree_folders.html'", style="margin-left:12px;") 
+			<!---------- Files template ------------->
+			div(ng-repeat="file in data.files", style="margin-left:12px;")
+				div(class="lable", class="folder_lable")
+					img(src="images/phpfile-icon.png", class="file_img")
+					div(class="lable", class="folder_lable")
+						lable{{file}}
+					div(class="clear")
+			
+	<!---------- Files template ------------->		
+	script(type="text/ng-template", id="tree_files.html")
+		div(ng-repeat="file in window.files_tree.files")
+			div(class="lable", class="folder_lable")
+				img(src="images/phpfile-icon.png", class="file_img")
+				div(class="lable", class="folder_lable")
+					lable{{file}}
+				div(class="clear")
+
+	
 	div(class="menu_rec")
 		div(class="menu_text")
 			|File
@@ -9,26 +36,17 @@ block content
 			div(class="w-space")
 				|Workspace Files
 			div(class="wrap_files")
-				div(ng-repeat="folder in window.files_tree.folders") 
-					img(src="images/triangle.png", class="triangle_img {{folder.tr_class}}", ng-click="tr_transf($index)")
-					img(src="images/folder_icon.png", class="folder_img") 
-					div(class="lable", class="folder_lable")
-						lable{{folder.name}}
-					div(class="clear")
-				div(ng-repeat="file in window.files_tree.files")
-					div(class="lable", class="folder_lable")
-						img(src="images/phpfile-icon.png", class="file_img")
-						div(class="lable", class="folder_lable")
-							lable{{file}}
-						div(class="clear")
+				div(ng-repeat="data in window.files_tree.folders", ng-include="'tree_folders.html'") 
+					
+			
+			div(ng-include="'tree_files.html'") 
+					
+				
 		div(ng-Mousedown="resizeDiv($event);", ng-Mouseup="resizeDivFinish();", class="code_rec", style="margin-left:{{window.left.width || 100+4}}px;")
 			|#{title}
 	div(style="clear:both; padding-top:10px;")
 	hr
 	|Debug View:
 	pre
-		|user={{window.files_tree | json}}
+		|user={{window.files_tree.folders[0] | json}}
 
-	script.
-		'#{files_tree}';
-		
