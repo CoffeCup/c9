@@ -1,12 +1,33 @@
-function testController($scope, $http) {
-	$scope.classes = "";
+
+function testController($scope, $http, $sce) {
 	
-
+	$scope.buttons = {
+		hide_files:{
+			name:'hide', 
+			title:'hide invisible files',
+			click : function()
+				{
+					if(this.name == 'show')
+					{
+						this.name = 'hide';
+						this.title = 'hide invisible files';
+					}
+					else
+					{
+						this.name = 'show';
+						this.title = 'show invisible files';
+					}
+				}		
+		}
+	};
+		
 	$scope.folder_inside = function(index, path)		
-							{	
-								folder_inside(index, path, $scope, $http);
-							};
-
+	{	
+		folder_inside(index, path, $scope, $http);
+	};
+					
+	
+	
 
 	$http({method: 'post', url: '/init'}).
 	    success(function(data, status, headers, config) {
@@ -59,6 +80,7 @@ function mousePos($scope){
  	};
  	
 };
+
 
 	  
 	  
