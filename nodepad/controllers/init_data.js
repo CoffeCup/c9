@@ -41,10 +41,7 @@ function get_folders(request, response)
 		folders = folders_list;
 		files = file_list;
 		nodes[0] = {folders: folders};
-		response.send({
-			left:{width:200, height:200},
-			files_tree: {folders:folders , files:files}
-		});
+		response.send({folders:folders , files:files});
 	});
 }
 

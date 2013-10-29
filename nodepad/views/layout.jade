@@ -5,9 +5,10 @@ html(ng-app="")
     link(rel='stylesheet', href='/stylesheets/style.css')
     script(src="http://code.angularjs.org/1.2.0-rc.3/angular.min.js",type="application/javascript")
     script(src="http://code.jquery.com/jquery-1.9.1.js",type="application/javascript")
-    script(src="/javascripts/socket.io.js",type="application/javascript")
-    
+    script(src="/javascripts/socket.io-client/dist/socket.io.js",type="application/javascript")
+    script(src="javascripts/script_window.js",type="application/javascript")
     script(src="javascripts/script.js",type="application/javascript")
+    script(src="/javascripts/io_script.js",type="application/javascript")
     
-  body(ng-controller="testController", style="padding:0px; margin:0px;width:100%")
+  body(style="padding:0px; margin:0px;width:100%")
     block content

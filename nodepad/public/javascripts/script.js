@@ -31,7 +31,7 @@ function testController($scope, $http, $sce) {
 
 	$http({method: 'post', url: '/init'}).
 	    success(function(data, status, headers, config) {
-	    	var window = $scope.window = data;
+	    	$scope.files_tree = data;
 	    // this callback will be called asynchronously
 	    // when the response is available
 	    }).
@@ -39,7 +39,7 @@ function testController($scope, $http, $sce) {
 	    // called asynchronously if an error occurs
 	    // or server returns response with an error status.
 	    });
-	
+	/*
 	$scope.resize = false;
 					
 	$scope.resizeDiv = function(e){
@@ -60,10 +60,10 @@ function testController($scope, $http, $sce) {
 		document.onmousemove = null;
 		mousePos($scope);	
 	}
-	$scope.mousePos = mousePos($scope);				
+	$scope.mousePos = mousePos($scope);			*/	
 	
 }
-
+/*
 function mousePos($scope){
  	document.onmousemove = function (e) {
 	 	
@@ -81,12 +81,12 @@ function mousePos($scope){
  	
 };
 
-
+*/
 	  
 	  
 function folder_inside(index, path, $scope, $http)
 {
-	var folder = $scope.window.files_tree;
+	var folder = $scope.files_tree;
 	index.forEach(function(entry) 
 	{
 		folder = folder["folders"][entry];
