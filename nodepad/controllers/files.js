@@ -24,7 +24,7 @@ function get_folder(request, response)
 				   	folders_list.push({name:entry, tr_class:'', path: w_path+"/", index : index, id_class : id_class});
 			    }
 			    if(stats.isFile())
-			    	file_list.push(entry);
+			    	file_list.push({name : entry});
 			    
 			});
 		folders = folders_list;

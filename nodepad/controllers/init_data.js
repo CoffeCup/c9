@@ -18,11 +18,14 @@ function get_w_path()
 
 function get_folders(request, response)
 {	
+	//request.session.left = {width:200, height:200};
+	//request.session.save();
+	//console.log(request.session.id);
 	var w_path = get_w_path();
 	var folders, files, path;
-	exec("pwd", function (error, stdout, stderr) {
+	/*exec("pwd", function (error, stdout, stderr) {
     	path = stdout;
-    });
+    });*/
 	fs.readdir(w_path, function(err, files)
 	{	
 		var folders_list = new Array();
@@ -35,7 +38,7 @@ function get_folders(request, response)
 				if(stats.isDirectory())
 				   	folders_list.push({name:entry, tr_class:'', path: w_path, index : [folders_list.length], id_class:folders_list.length});
 			    if(stats.isFile())
-			    	file_list.push(entry);
+			    	file_list.push({name : entry});
 			    
 			});
 		folders = folders_list;

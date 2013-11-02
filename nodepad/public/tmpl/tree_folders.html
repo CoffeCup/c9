@@ -1,21 +1,21 @@
-<img src="images/triangle.png"  class="triangle_img {{data.tr_class}}" ng-click="folder_inside({{data.index}}, '{{data.path}}{{data.name}}')" />
-<img src="images/folder_icon.png" class="folder_img" ng-click="folder_inside({{data.index}}, '{{data.path}}{{data.name}}')" /> 
-	<div class="lable" class="folder_lable">
-		<lable>{{data.name}}</lable>
-	</div>
-	<div class="clear"></div>
-	<div class="{{data.id_class}}" style="display:none;">
-		<div ng-repeat="data in data.folders" ng-include="'tmpl/tree_folders.html'" style="margin-left:12px;"></div>
-		
-	<!---------- Files template ------------->
-		<div ng-repeat="file in data.files" style="margin-left:12px;">
+<img src="images/triangle.png"  class="triangle_img {{data.tr_class}} " ng-click="folder_inside(data)", ng-show="show_hidden || data.name[0]!='.'" style="margin-left:{{12*(data.index.length-1)}}px;"/>
+<img src="images/folder_icon.png" class="folder_img" ng-click="folder_inside(data)" ng-show="show_hidden || data.name[0]!='.'"/> 
+<div class="lable folder_lable {{data.active}}", ng-show="show_hidden || data.name[0]!='.'" style="padding: 2px 0px;">
+	<lable>{{data.name}}</lable>
+</div>
+<div class="clear", ng-show="show_hidden || data.name[0]!='.'"></div>
+<div class="{{data.id_class}}" style="display:none;", ng-show="show_hidden || data.name[0]!='.'">
+	<div ng-repeat="data in data.folders" ng-include="'tmpl/tree_folders.html'"></div>
+	
+<!---------- Files template ------------->
+	<div ng-repeat="file in data.files" style="padding-left:{{13*data.index.length}}px;" class="{{file.active}}" ng-show="show_hidden || file.name[0]!='.'" ng-click="mark_blue(file)">
+		<div class="lable folder_lable">
+			<img src="images/phpfile-icon.png" class="file_img" />
 			<div class="lable" class="folder_lable">
-				<img src="images/phpfile-icon.png" class="file_img" />
-				<div class="lable" class="folder_lable">
-					<lable>{{file}}</lable>
-				</div>
-				<div class="clear"></div>
+				<lable>{{file.name}}</lable>
 			</div>
+			<div class="clear"></div>
 		</div>
 	</div>
+</div>
 	

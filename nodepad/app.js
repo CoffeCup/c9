@@ -10,6 +10,7 @@ var init_data = require(__dirname + '/controllers/init_data.js');
 var files = require(__dirname + '/controllers/files.js');
 var http = require('http');
 var path = require('path');
+var connect = require('connect');
 
 var app = require('express')();
 // all environments
@@ -19,6 +20,15 @@ app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
+/* session*/
+//app.use(express.cookieDecoder());
+/*app.use(connect.cookieParser());
+app.use(connect.session({ secret: 'c9test',
+							cookie: { 
+							    expires: new Date(Date.now() + 30*24*60*60*1000)
+							}
+						} ));
+/**/
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));

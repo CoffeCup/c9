@@ -2,8 +2,6 @@ extends layout
 
 block content
 
-
-
 	div(class="menu_rec")
 		div(class="menu_text")
 			|File
@@ -13,9 +11,8 @@ block content
 				|Workspace Files
 				button(ng-show="button = buttons.hide_files", class="button", title="{{button.title}}", ng-click="button.click()	")
 					| {{button.name}}
-			div(class="wrap_files")
-				div(ng-repeat="data in files_tree.folders", ng-include="'tmpl/tree_folders.html'") 
-					
+			
+			div(ng-repeat="data in files_tree.folders", ng-include="'tmpl/tree_folders.html'") 
 			div(ng-repeat="file in files_tree.files", ng-include="'tmpl/tree_files.html'")
 					
 				
@@ -27,5 +24,5 @@ block content
 	hr
 	|Debug View:
 	pre
-		|user={{files_tree | json}}
+		|user={{show_hidden | json}}
 

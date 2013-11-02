@@ -1,6 +1,6 @@
 
 function testController($scope, $http, $sce) {
-	
+	$scope.show_hidden = true;
 	$scope.buttons = {
 		hide_files:{
 			name:'hide', 
@@ -11,22 +11,27 @@ function testController($scope, $http, $sce) {
 					{
 						this.name = 'hide';
 						this.title = 'hide invisible files';
+						$scope.show_hidden = true;
 					}
 					else
 					{
 						this.name = 'show';
 						this.title = 'show invisible files';
+						$scope.show_hidden = false;
 					}
 				}		
 		}
 	};
 		
-	$scope.folder_inside = function(index, path)		
+	$scope.folder_inside = function(data)		
 	{	
-		folder_inside(index, path, $scope, $http);
+		folder_inside(data, $scope, $http);
 	};
-					
-	
+	/// this function mark blue clicked file or folder IT"S A COURSOR for a file				
+	$scope.mark_blue = function(obj)		
+	{	
+		blue_marker(obj, $scope);
+	};
 	
 
 	$http({method: 'post', url: '/init'}).
@@ -39,53 +44,16 @@ function testController($scope, $http, $sce) {
 	    // called asynchronously if an error occurs
 	    // or server returns response with an error status.
 	    });
-	/*
-	$scope.resize = false;
-					
-	$scope.resizeDiv = function(e){
-		document.onmousemove = function (ev)
-		{
-			if($scope.resize)
-			{
-				$scope.$apply(function(){
-			      $scope.window.left.width=ev.clientX;
-			    });
-			}
-		}
 		
-			
-	}
-	$scope.resizeDivFinish = function(){
-		$scope.resize = false
-		document.onmousemove = null;
-		mousePos($scope);	
-	}
-	$scope.mousePos = mousePos($scope);			*/	
 	
 }
-/*
-function mousePos($scope){
- 	document.onmousemove = function (e) {
-	 	
-	 	if((e.clientX >=($scope.window.left.width) && e.clientX <=($scope.window.left.width+5))) 
- 		{	
- 			$("body").css('cursor', 'ew-resize');
- 			$scope.resize = true;
- 		}
- 		else
- 		{ 
- 			$("body").css('cursor', 'default');
- 			$scope.resize = false;
- 		}
- 	};
- 	
-};
-
-*/
 	  
 	  
-function folder_inside(index, path, $scope, $http)
+function folder_inside(data, $scope, $http)
 {
+	blue_marker(data, $scope);
+	var path = data.path+data.name;
+	var index = data.index;
 	var folder = $scope.files_tree;
 	index.forEach(function(entry) 
 	{
@@ -98,6 +66,7 @@ function folder_inside(index, path, $scope, $http)
   		$('.'+folder.id_class).toggle();
   		if(typeof(folder.folders)=='undefined')
   		{
+	  		
 	  		var data = {index : index, path:path};
 		    $http.post('/files/get_folder', data).success(
 		    	function(data){
@@ -115,4 +84,18 @@ function folder_inside(index, path, $scope, $http)
 		folder.tr_class = "";
 		$('.'+folder.id_class).toggle();
 	}
+	
+}
+
+function blue_marker(obj, $scope)
+{
+	if(typeof($scope.selected) != 'undefined')
+		// for no conflict marker an hide button
+		if($scope.show_hidden != true && $scope.selected.name[0] == '.')
+			$scope.selected.active = "ng-hide";
+		else
+			$scope.selected.active = "";
+	$scope.selected = obj;
+	$scope.selected.active = "blue_marker";
+	console.log($scope.selected.name,$scope.selected.active)
 }
