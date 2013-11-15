@@ -6,23 +6,26 @@ block content
 		div(class="menu_text")
 			|File
 	div(style="width:100%; display:block;height:90%;", ng-controller="WindowsController")
-		div(ng-controller="testController", ng-Mousedown="resizeDiv($event);", ng-Mouseup="resizeDivFinish();", class="files_rec", style="width:{{left.width+2 || 200+4}}px;")
+		div(ng-controller="testController", ng-Mousedown="resizeDiv($event);", ng-Mouseup="resizeDivFinish();", class="files_rec", style="width:{{(left.width+2) || 200+4}}px;")
 			div(class="w-space")
 				|Workspace Files
-				button(ng-show="button = buttons.hide_files", class="button", title="{{button.title}}", ng-click="button.click()	")
+				button(ng-show="button = buttons.hide_files", class="button", title="{{button.title}}", ng-click="button.click()")
 					| {{button.name}}
-			
-			div(ng-repeat="data in files_tree.folders", ng-include="'tmpl/tree_folders.html'") 
-			div(ng-repeat="file in files_tree.files", ng-include="'tmpl/tree_files.html'")
-					
-				
-		div(ng-Mousedown="resizeDiv($event);", ng-Mouseup="resizeDivFinish();", class="code_rec", style="margin-left:{{left.width || 100+4}}px;")
-			|#{title}
-	div(style="clear:both; padding-top:10px;")
-	div(ng-bind-html="trustedHtml['s']")
+			div(ng-controller="EditorController")
+				div(ng-repeat="data in files_tree.folders", ng-include="'tmpl/tree_folders.html'") 
+				div(ng-repeat="file in files_tree.files", ng-include="'tmpl/tree_files.html'")
 
-	hr
-	|Debug View:
-	pre
-		|user={{show_hidden | json}}
+				
+		div(ng-Mousedown="resizeDiv($event);", ng-Mouseup="resizeDivFinish();", class="code_rec", style="margin-left:{{left.width || 200+4}}px;", ng-controller="EditorController")
+			div(class="editor_tab")
+				div(ng-repeat="editor_file in files", class="editor_tab_files")
+					div(style="float:left")
+						|{{editor_file.name}}
+					div(style="float:left;margin:0 0 0 12px;")
+						div(class="close_file", ng-click="close_file(editor_file)")
+							span(class="close_file_icon")
+								|x
+			pre
+				|files = {{files | json}}
+	div(style="clear:both; padding-top:10px;")
 

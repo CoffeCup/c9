@@ -38,7 +38,7 @@ function get_folders(request, response)
 				if(stats.isDirectory())
 				   	folders_list.push({name:entry, tr_class:'', path: w_path, index : [folders_list.length], id_class:folders_list.length});
 			    if(stats.isFile())
-			    	file_list.push({name : entry});
+			    	file_list.push({path: w_path, name : entry});
 			    
 			});
 		folders = folders_list;

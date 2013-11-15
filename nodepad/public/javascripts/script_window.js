@@ -1,7 +1,7 @@
 
 function WindowsController($scope) {
 	$scope.resize = false;
-	$scope.left = {width:200, height:200};				
+	$scope.left = {width:parseInt(localStorage['left_width']) || 200, height:200};				
 	$scope.resizeDiv = function(e){
 		document.onmousemove = function (ev)
 		{
@@ -9,6 +9,7 @@ function WindowsController($scope) {
 			{
 				$scope.$apply(function(){
 			      $scope.left.width=ev.clientX;
+			      localStorage['left_width'] = parseInt(ev.clientX);
 			    });
 			}
 		}

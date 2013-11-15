@@ -1,28 +1,46 @@
+var app = angular.module('myApp', []);
+     
+// Service definition
+app.service('testService', function(){
+	this.files = [];
+});
 
-function testController($scope, $http, $sce) {
-	$scope.show_hidden = true;
+function testController($scope, $http, $sce, testService) {
+//*********************** files are *********************************
+	//on file click open new tab with file content
+	$scope.edit_file = function(file)		
+	{	
+		if(!in_array(file, testService.files))
+			testService.files.push(file);
+	};
+
+//********************** buttons area *******************************
+	$scope.show_hidden = (typeof(localStorage['button_hide_files']) != 'undefined') ? localStorage['button_hide_files'] :  'true';
 	$scope.buttons = {
 		hide_files:{
-			name:'hide', 
+			name: (localStorage['button_hide_files']!='true') ? 'show' : 'hide', 
 			title:'hide invisible files',
 			click : function()
-				{
-					if(this.name == 'show')
+				{	
+					if($scope.show_hidden != 'true')
 					{
 						this.name = 'hide';
 						this.title = 'hide invisible files';
-						$scope.show_hidden = true;
+						$scope.show_hidden = 'true';
+						localStorage['button_hide_files'] = 'true';
 					}
 					else
 					{
 						this.name = 'show';
 						this.title = 'show invisible files';
-						$scope.show_hidden = false;
+						$scope.show_hidden = 'false';
+						localStorage['button_hide_files'] = 'false';
 					}
 				}		
 		}
 	};
 		
+//************************** hendkers area **************************
 	$scope.folder_inside = function(data)		
 	{	
 		folder_inside(data, $scope, $http);
@@ -33,7 +51,7 @@ function testController($scope, $http, $sce) {
 		blue_marker(obj, $scope);
 	};
 	
-
+	
 	$http({method: 'post', url: '/init'}).
 	    success(function(data, status, headers, config) {
 	    	$scope.files_tree = data;
@@ -66,7 +84,6 @@ function folder_inside(data, $scope, $http)
   		$('.'+folder.id_class).toggle();
   		if(typeof(folder.folders)=='undefined')
   		{
-	  		
 	  		var data = {index : index, path:path};
 		    $http.post('/files/get_folder', data).success(
 		    	function(data){
@@ -91,11 +108,20 @@ function blue_marker(obj, $scope)
 {
 	if(typeof($scope.selected) != 'undefined')
 		// for no conflict marker an hide button
-		if($scope.show_hidden != true && $scope.selected.name[0] == '.')
+		if($scope.show_hidden != 'true' && $scope.selected.name[0] == '.')
 			$scope.selected.active = "ng-hide";
 		else
 			$scope.selected.active = "";
 	$scope.selected = obj;
 	$scope.selected.active = "blue_marker";
-	console.log($scope.selected.name,$scope.selected.active)
+}
+
+// does we have same object in array now
+function in_array(value, array) 
+{
+    for(var i = 0; i < array.length; i++) 
+    {
+        if(JSON.stringify(array[i]) === JSON.stringify(value)) return true;
+    }
+    return false;
 }

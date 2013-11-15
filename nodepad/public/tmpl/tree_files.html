@@ -1,6 +1,6 @@
-<div class="lable folder_lable {{file.active}}" ng-show="show_hidden || file.name[0]!='.'" ng-click="mark_blue(file)">
-	<img src="images/phpfile-icon.png" class="file_img" />
+<div class="lable folder_lable {{file.active}}" ng-show="file.name[0]!='.' || show_hidden" ng-click="mark_blue(file)">
+	<img src="images/phpfile-icon.png" class="file_img" ng-click=edit_file(file) />
 	<div class="lable" class="folder_lable">
-		<lable>{{file.name}}</lable>
+		<lable ng-click=edit_file(file)>{{file.name}}</lable>
 	</div>
 <div class="clear"></div>
