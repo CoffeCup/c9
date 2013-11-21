@@ -11,7 +11,9 @@ function testController($scope, $http, $sce, testService) {
 	$scope.edit_file = function(file)		
 	{	
 		if(!in_array(file, testService.files))
+		{
 			testService.files.push(file);
+		}
 	};
 
 //********************** buttons area *******************************
@@ -40,7 +42,7 @@ function testController($scope, $http, $sce, testService) {
 		}
 	};
 		
-//************************** hendkers area **************************
+//************************** handlers area **************************
 	$scope.folder_inside = function(data)		
 	{	
 		folder_inside(data, $scope, $http);
